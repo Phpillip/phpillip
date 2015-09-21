@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>{{ title }}</title>
+        <description>{{ description }}</description>
+        <language>{{ language|default('en') }}</language>
+        <link>{{ link|default(canonical) }}</link>
+        {% if webmaster|default(null) %}
+            <webMaster>{{ webmaster }}</webMaster>
+        {% endif %}
+        {% set pubDate = pubDate|default((items|first).pubDate) %}
+        {% if pubDate %}
+            <pubDate>{{ pubDate|date('c') }}</pubDate>
+        {% endif %}
+        {% for item in items %}
+        <item>
+            <title>{{ item.title }}</title>
+            <link>{{ item.link }}</link>
+            <description>{{ item.description }}</description>
+            {% if item.guid|default(null) %}
+                <guid>{{ item.guid }}</guid>
+            {% endif %}
+            {% if item.pubDate|default(null) %}
+                <pubDate>{{ item.pubDate|date('c') }}</pubDate>
+            {% endif %}
+        </item>
+        {% endfor %}
+    </channel>
+</rss>
