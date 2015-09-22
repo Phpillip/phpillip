@@ -64,6 +64,7 @@ class Application extends BaseApplication
             [
                 new Command\BuildCommand(),
                 new Command\ServeCommand(),
+                new Command\ExposeCommand(),
             ]
         );
     }

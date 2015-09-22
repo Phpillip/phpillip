@@ -9,11 +9,12 @@ use Phpillip\Model\Paginator;
 use Phpillip\Model\Sitemap;
 use Phpillip\Routing\Route;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -72,11 +73,8 @@ class BuildCommand extends Command
         $this
             ->setName('phpillip:build')
             ->setDescription('Build static website')
-            ->addArgument(
-                'host',
-                InputArgument::OPTIONAL,
-                'What should be use as domain name for absolute url generation?'
-            )
+            ->addArgument('host', InputArgument::OPTIONAL, 'What should be used as domain name for absolute url generation?')
+            ->addOption('no-expose', null, InputOption::VALUE_NONE, 'Don\'t expose the public directory after build')
         ;
     }
 
@@ -118,7 +116,9 @@ class BuildCommand extends Command
             $this->buildSitemap();
         }
 
-        $this->expose($this->app['root'] . $this->app['public_path']);
+        if (!$input->getOption('no-expose') && $this->getApplication()->has('phpillip:expose')) {
+            $this->getApplication()->get('phpillip:expose')->run(new ArrayInput(['command' => 'phpillip:expose']), $output);
+        }
     }
 
     /**
@@ -276,23 +276,5 @@ class BuildCommand extends Command
 
         $this->files->dumpFile(sprintf('%s/%s', $directory, $file), $content);
         $this->logger->log(sprintf('    Built file <comment>%s/</comment><info>%s</info>', trim($path, '/'), $file));
-    }
-
-    /**
-     * Expose the given directory
-     *
-     * @param string $path
-     */
-    public function expose($path)
-    {
-        $finder = new Finder();
-
-        foreach ($finder->files()->in($path) as $file) {
-            $this->files->copy(
-                $file->getPathName(),
-                str_replace($path, $this->destination, $file->getPathName()),
-                true
-            );
-        }
     }
 }
