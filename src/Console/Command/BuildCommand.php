@@ -104,6 +104,12 @@ class BuildCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if ($this->files->exists($this->destination)) {
+            $this->files->remove($this->destination);
+        }
+
+        $this->files->mkdir($this->destination);
+
         $this->logger->log(sprintf('Building <info>%s</info> routes...', $this->app['routes']->count()));
 
         foreach ($this->app['routes'] as $name => $route) {
