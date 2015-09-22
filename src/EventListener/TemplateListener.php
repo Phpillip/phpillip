@@ -4,10 +4,13 @@ namespace Phpillip\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Twig_Environment as Twig;
+use Symfony\Component\Routing\RouteCollection;
+use Twig_Environment;
+use Twig_Error_Loader;
 
 /**
  * Find and render the proper template for unfinished controller response
@@ -22,12 +25,14 @@ class TemplateListener implements EventSubscriberInterface
     protected $templating;
 
     /**
-     * Templating
+     * Constructor
      *
+     * @param RouteCollection $routes
      * @param Twig_Environment $templating
      */
-    public function __construct(Twig $templating)
+    public function __construct(RouteCollection $routes, Twig_Environment $templating)
     {
+        $this->routes     = $routes;
         $this->templating = $templating;
     }
 
@@ -43,7 +48,7 @@ class TemplateListener implements EventSubscriberInterface
     }
 
     /**
-     * Handles KErnel Controller events
+     * Handles Kernel Controller events
      *
      * @param FilterControllerEvent $event
      */
@@ -64,10 +69,11 @@ class TemplateListener implements EventSubscriberInterface
     public function onKernelView(GetResponseForControllerResultEvent $event)
     {
         $request    = $event->getRequest();
+        $response   = $event->getResponse();
         $parameters = $event->getControllerResult();
 
-        if (is_array($parameters) && $template = $request->attributes->get('_template')) {
-            $event->setControllerResult($this->templating->render($template, $parameters));
+        if (!$response instanceof Response && $template = $request->attributes->get('_template')) {
+            return $event->setControllerResult($this->templating->render($template, $parameters));
         }
     }
 
@@ -85,18 +91,54 @@ class TemplateListener implements EventSubscriberInterface
             return null;
         }
 
-        if ('rss' == $format = $request->attributes->get('_format', 'html')) {
+        $format = $request->attributes->get('_format', 'html');
+
+        if ($format === 'rss') {
             return '@phpillip/rss.xml.twig';
         }
 
-        if (!is_array($controller) || !is_object($controller[0])) {
-            return null;
+        $templates = [];
+
+        if (is_array($controller) && is_object($controller[0]) && preg_match('#Controller\\\(.+)Controller$#', get_class($controller[0]), $matches)) {
+            $template = sprintf('%s/%s.%s.twig', $matches[1], $controller[1], $format);
+
+            if ($this->templateExists($template)) {
+                return $template;
+            } else {
+                $templates[] = $template;
+            }
         }
 
-        if (!preg_match('#Controller\\\(.+)Controller$#', get_class($controller[0]), $matches)) {
-            return null;
+        $route = $this->routes->get($request->attributes->get('_route'));
+
+        if ($route && $route->hasContent()) {
+            $template = sprintf('%s/%s.%s.twig', $route->getContent(), $route->isList() ? 'list' : 'show', $format);
+
+            if ($this->templateExists($template)) {
+                return $template;
+            } else {
+                $templates[] = $template;
+            }
         }
 
-        return sprintf('%s/%s.%s.twig', $matches[1], $controller[1], $format);
+        return array_pop($templates);
+    }
+
+    /**
+     * Does the given template exists?
+     *
+     * @param string $template
+     *
+     * @return boolean
+     */
+    protected function templateExists($template)
+    {
+        try {
+            $class = $this->templating->getTemplateClass($template);
+        } catch (Twig_Error_Loader $e) {
+            return false;
+        }
+
+        return $template;
     }
 }

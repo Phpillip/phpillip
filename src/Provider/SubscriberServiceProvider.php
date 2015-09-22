@@ -18,6 +18,7 @@ class SubscriberServiceProvider implements ServiceProviderInterface
     {
         $app['dispatcher']->addSubscriber(new EventListener\ContentConverterListener($app['routes'], $app['content_repository']));
         $app['dispatcher']->addSubscriber(new EventListener\LastModifierListener($app['routes']));
+        $app['dispatcher']->addSubscriber(new EventListener\TemplateListener($app['routes'], $app['twig']));
     }
 
     /**
