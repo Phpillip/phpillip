@@ -63,8 +63,9 @@ class Application extends BaseApplication
             parent::getDefaultCommands(),
             [
                 new Command\BuildCommand(),
-                new Command\ServeCommand(),
                 new Command\ExposeCommand(),
+                new Command\ServeCommand(),
+                new Command\WatchCommand(),
             ]
         );
     }
