@@ -24,7 +24,7 @@ class BuildCommand extends Command
     /**
      * Application
      *
-     * @var Symfony\Component\Console\Application
+     * @var Phpillip\Application
      */
     protected $app;
 

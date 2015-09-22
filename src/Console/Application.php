@@ -2,7 +2,7 @@
 
 namespace Phpillip\Console;
 
-use Phpillip\Console\Command\BuildCommand;
+use Phpillip\Console\Command;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -62,7 +62,8 @@ class Application extends BaseApplication
         return array_merge(
             parent::getDefaultCommands(),
             [
-                new BuildCommand(),
+                new Command\BuildCommand(),
+                new Command\ServeCommand(),
             ]
         );
     }
