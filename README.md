@@ -13,13 +13,11 @@ _It's particularly fit for blogging, documentation and showcase._
 
 It's written in PHP, using [Silex](http://silex.sensiolabs.org/) and it's meant to be:
 
-- __Clear, simple and strong__
+- __Clear, simple and usable__
 - __Highly extendable and customisable__
-- __Symfony developers Friendly__
+- __Symfony developers friendly__
 
 ## Usage
-
-### Content
 
 #### Writing content
 
@@ -51,9 +49,10 @@ You're free to support any format you want by adding new __decoders__.
     $app['content_repository']->getContents('article', 'date', false);
 ```
 
-## Design
+### Declaring controllers
 
-It's built with [Silex](http://silex.sensiolabs.org/) and uses Symfony components you're used to work with: [Twig](http://twig.sensiolabs.org/) as a rendering engine, Routes, Controllers, Commands, ...
+- [Phpillip's default content controller](doc/controller/content.md)
+- [Custom controller classes](doc/controller/custom.md)
 
 The build process is simple: __dump all declared routes__.
 
