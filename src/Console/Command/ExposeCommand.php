@@ -6,6 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Expose the public directory
@@ -42,11 +43,12 @@ class ExposeCommand extends Command
         $output->writeln('<comment>Exposing public path.</comment>');
 
         $finder = new Finder();
+        $files  = new Filesystem();
 
         foreach ($finder->files()->in($this->source) as $file) {
-            $this->files->copy(
+            $files->copy(
                 $file->getPathName(),
-                str_replace($path, $this->destination, $file->getPathName()),
+                str_replace($this->source, $this->destination, $file->getPathName()),
                 true
             );
         }
