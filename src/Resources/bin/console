@@ -5,15 +5,13 @@ set_time_limit(0);
 
 function tryRequireOnce($file)
 {
-    $paths = [__DIR__.'/../', __DIR__.'/../../'];
-
-    foreach ($paths as $path) {
+    foreach ([__DIR__.'/../../../../../../', __DIR__.'/../../', __DIR__.'/../'] as $path) {
         if (file_exists($path . $file)) {
             return require_once $path . $file;
         }
     }
 
-    die(sprintf('File "%s" not found (in "%s")', $file, implode('", "', $paths)));
+    die(sprintf('File not found "%s"', $file));
 }
 
 tryRequireOnce('vendor/autoload.php');
