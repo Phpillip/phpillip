@@ -128,7 +128,7 @@ EOF
      */
     private function createPhpProcessBuilder(OutputInterface $output, $address)
     {
-        $router = realpath(__DIR__ . '/../../Resources/config/router.php');
+        $router = realpath(__DIR__ . '/../../Resources/bin/router.php');
         $finder = new PhpExecutableFinder();
 
         if (false === $binary = $finder->find()) {
