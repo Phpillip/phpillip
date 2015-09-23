@@ -165,7 +165,7 @@ class BuildCommand extends Command
     {
         $type       = $route->getContent();
         $contents   = $this->content->listContents($type);
-        $paginator  = new Paginator($contents);
+        $paginator  = new Paginator($contents, $route->getPerPage());
         $length     = $paginator->count();
 
         $this->logger->log(sprintf('Building route <comment>%s</comment> for <info>%s</info> pages', $name, $length));

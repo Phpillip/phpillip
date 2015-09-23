@@ -10,62 +10,6 @@ use Silex\Route as BaseRoute;
 class Route extends BaseRoute
 {
     /**
-     * Content type
-     *
-     * @var string
-     */
-    protected $content;
-
-    /**
-     * File path
-     *
-     * @var string
-     */
-    protected $filePath;
-
-    /**
-     * File name
-     *
-     * @var string
-     */
-    protected $fileName = 'index';
-
-    /**
-     * List
-     *
-     * @var boolean
-     */
-    protected $list = false;
-
-    /**
-     * Hidden from dump
-     *
-     * @var boolean
-     */
-    protected $hidden = false;
-
-    /**
-     * Mapped on sitemap
-     *
-     * @var boolean
-     */
-    protected $mapped = true;
-
-    /**
-     * List index
-     *
-     * @var string
-     */
-    protected $index;
-
-    /**
-     * List sort order
-     *
-     * @var boolean
-     */
-    protected $order;
-
-    /**
      * {@inheritdoc}
      */
     public function setPath($pattern)
@@ -92,7 +36,7 @@ class Route extends BaseRoute
      */
     public function setFilePath($filePath)
     {
-        $this->filePath = $filePath;
+        $this->setOption('filePath', $filePath);
 
         return $this;
     }
@@ -104,7 +48,7 @@ class Route extends BaseRoute
      */
     public function getFilePath()
     {
-        return $this->filePath;
+        return  $this->getOption('filePath');
     }
 
     /**
@@ -116,7 +60,7 @@ class Route extends BaseRoute
      */
     public function setFileName($fileName)
     {
-        $this->fileName = $fileName;
+        $this->setOption('fileName', $fileName);
 
         return $this;
     }
@@ -128,7 +72,7 @@ class Route extends BaseRoute
      */
     public function getFileName()
     {
-        return $this->fileName;
+        return $this->getOption('fileName') ?: 'index';
     }
 
     /**
@@ -140,7 +84,7 @@ class Route extends BaseRoute
      */
     public function content($content)
     {
-        $this->content = $content;
+        $this->setOption('content', $content);
 
         return $this;
     }
@@ -158,9 +102,9 @@ class Route extends BaseRoute
     {
         $this->content($content);
 
-        $this->list  = true;
-        $this->index = $index;
-        $this->order = $order;
+        $this->setOption('list', true);
+        $this->setOption('index', $index);
+        $this->setOption('order', $order);
 
         return $this;
     }
@@ -172,11 +116,12 @@ class Route extends BaseRoute
      *
      * @return Route
      */
-    public function paginate($content, $index = null, $order = true)
+    public function paginate($content, $index = null, $order = true, $perPage = 10)
     {
         if (!$this->isPaginated()) {
             $this
                 ->contents($content, $index, $order)
+                ->setPerPage($perPage)
                 ->setPath($this->getPath() . '/{page}')
                 ->value('page', 1)
                 ->assert('page', '\d+');
@@ -192,7 +137,7 @@ class Route extends BaseRoute
      */
     public function getContent()
     {
-        return $this->content;
+        return $this->getOption('content');
     }
 
     /**
@@ -202,7 +147,7 @@ class Route extends BaseRoute
      */
     public function hasContent()
     {
-        return $this->content !== null;
+        return $this->hasOption('content');
     }
 
     /**
@@ -212,7 +157,7 @@ class Route extends BaseRoute
      */
     public function isList()
     {
-        return $this->list;
+        return $this->getOption('list');
     }
 
     /**
@@ -222,7 +167,7 @@ class Route extends BaseRoute
      */
     public function getIndexBy()
     {
-        return $this->index;
+        return $this->getOption('index');
     }
 
     /**
@@ -232,7 +177,7 @@ class Route extends BaseRoute
      */
     public function getOrder()
     {
-        return $this->order;
+        return $this->getOption('order');
     }
 
     /**
@@ -252,7 +197,7 @@ class Route extends BaseRoute
      */
     public function hide()
     {
-        $this->hidden = true;
+        $this->setOption('hidden', true);
 
         return $this;
     }
@@ -264,7 +209,7 @@ class Route extends BaseRoute
      */
     public function isVisible()
     {
-        return !$this->hidden;
+        return !$this->getOption('hidden');
     }
 
     /**
@@ -274,7 +219,7 @@ class Route extends BaseRoute
      */
     public function hideFromSitemap()
     {
-        $this->mapped = false;
+        $this->setOption('hide-from-sitemap', true);
 
         return $this;
     }
@@ -286,7 +231,7 @@ class Route extends BaseRoute
      */
     public function isMapped()
     {
-        return $this->mapped;
+        return !$this->getOption('hide-from-sitemap');
     }
 
     /**
@@ -317,5 +262,29 @@ class Route extends BaseRoute
         $this->value('_template', $template);
 
         return $this;
+    }
+
+    /**
+     * Set number of contents per page
+     *
+     * @param integer $perPage
+     *
+     * @return Route
+     */
+    public function setPerPage($perPage)
+    {
+        $this->setOption('perPage', $perPage);
+
+        return $this;
+    }
+
+    /**
+     * Get number of contents per page
+     *
+     * @return integer
+     */
+    public function getPerPage()
+    {
+        return $this->getOption('perPage') ?: 10;
     }
 }
