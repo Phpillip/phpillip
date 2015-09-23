@@ -30,6 +30,7 @@
         "symfony/yaml": "~2.7",
         "erusev/parsedown": "^1.5"
     },
+    "bin": ["src/Resources/bin/console"],
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"

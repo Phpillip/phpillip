@@ -287,4 +287,14 @@ class Route extends BaseRoute
     {
         return $this->getOption('perPage') ?: 10;
     }
+
+    /**
+     * Get format
+     *
+     * @return string
+     */
+    public function getFormat()
+    {
+        return $this->getDefault('_format') ?: 'html';
+    }
 }

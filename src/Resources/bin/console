@@ -1,0 +1,34 @@
+#!/usr/bin/env php
+<?php
+
+set_time_limit(0);
+
+function tryRequireOnce($file)
+{
+    $paths = [__DIR__.'/../', __DIR__.'/../../'];
+
+    foreach ($paths as $path) {
+        if (file_exists($path . $file)) {
+            return require_once $path . $file;
+        }
+    }
+
+    die(sprintf('File "%s" not found (in "%s")', $file, implode('", "', $paths)));
+}
+
+tryRequireOnce('vendor/autoload.php');
+tryRequireOnce('src/Application.php');
+
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Debug\Debug;
+use Phpillip\Console\Application as Console;
+
+$input = new ArgvInput();
+$debug = getenv('APP_DEBUG') !== '0' && !$input->hasParameterOption(array('--no-debug', ''));
+
+if ($debug) {
+    Debug::enable();
+}
+
+$application = new Console(new Application(['debug' => $debug]));
+$application->run($input);

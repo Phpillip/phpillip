@@ -4,7 +4,6 @@ namespace Phpillip\EventListener;
 
 use Phpillip\Model\Paginator;
 use Phpillip\Routing\Route;
-use Phpillip\Service\ContentRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +14,7 @@ use Symfony\Component\Routing\RouteCollection;
 /**
  * Add Last-Modified header to content routes response
  */
-class LastModifierListener implements EventSubscriberInterface
+class LastModifiedListener implements EventSubscriberInterface
 {
     /**
      * Routes
