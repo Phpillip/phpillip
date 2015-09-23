@@ -83,7 +83,7 @@ class ContentConverterListener implements EventSubscriberInterface
             $value = $this->repository->getContents($content, $route->getIndexBy(), $route->getOrder());
 
             if ($route->isPaginated()) {
-                $paginator = new Paginator($value);
+                $paginator = new Paginator($value, $route->getPerPage());
                 $value     = $paginator->get($request->attributes->get('page'));
                 $request->attributes->set('paginator', $paginator);
             }
