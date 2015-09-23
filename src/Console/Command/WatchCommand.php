@@ -67,7 +67,7 @@ class WatchCommand extends Command
 
         $this->build($output);
 
-        $output->writeln(sprintf('Watching for changes in <comment>%s</comment>.', $source));
+        $output->writeln(sprintf('[ Watching for changes in <comment>%s</comment> ]', $source));
 
         while (true) {
             $finder = new Finder();

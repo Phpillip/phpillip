@@ -31,7 +31,7 @@ class ExposeCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('<comment>Exposing public path.</comment>');
+        $output->writeln('[ Exposing public directory ]');
 
         $app         = $this->getApplication()->getKernel();
         $source      = $app['root'] . $app['public_path'];

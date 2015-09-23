@@ -109,17 +109,18 @@ class BuildCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->logger->log('Clearing destination folder...');
+        $this->logger->log('[ Clearing destination folder ]');
 
         $this->builder->clear();
 
-        $this->logger->log(sprintf('Building <info>%s</info> routes...', $this->app['routes']->count()));
+        $this->logger->log(sprintf('[ Building <info>%s</info> routes ]', $this->app['routes']->count()));
 
         foreach ($this->app['routes'] as $name => $route) {
             $this->dump($route, $name);
         }
 
         if ($this->sitemap) {
+            $this->logger->log(sprintf('[ Building sitemap with <comment>%s</comment> urls. ]', count($this->sitemap)));
             $this->buildSitemap($this->sitemap);
         }
 
@@ -247,10 +248,7 @@ class BuildCommand extends Command
      */
     protected function buildSitemap(Sitemap $sitemap)
     {
-        $this->logger->log(sprintf('Building sitemap with <comment>%s</comment> urls.', count($sitemap)));
-
         $content = $this->app['twig']->render('@phpillip/sitemap.xml.twig', ['sitemap' => $sitemap]);
-
         $this->builder->write('/', $content, 'xml', 'sitemap');
     }
 }
