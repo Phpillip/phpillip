@@ -1,9 +1,10 @@
 <?php
 
-namespace Phpillip\Model;
+namespace Phpillip\Console\Model;
 
-use Iterator;
 use Countable;
+use DateTime;
+use Iterator;
 
 /**
  * Sitemap
@@ -11,7 +12,7 @@ use Countable;
 class Sitemap implements Iterator, Countable
 {
     /**
-     * Urls
+     * Mapped URLs
      *
      * @var array
      */
@@ -27,12 +28,12 @@ class Sitemap implements Iterator, Countable
     /**
      * Add location
      *
-     * @param string $location
-     * @param DateTime $lastModified
-     * @param integer $priority
+     * @param string $location The URL
+     * @param DateTime $lastModified Date of last modification
+     * @param integer $priority Location priority
      * @param string $frequency
      */
-    public function add($location, $lastModified = null, $priority = null, $frequency = null)
+    public function add($location, DateTime $lastModified = null, $priority = null, $frequency = null)
     {
         $url = ['location' => $location];
 
