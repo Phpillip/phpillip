@@ -57,10 +57,28 @@ class BuildCommand extends Command
         $this
             ->setName('phpillip:build')
             ->setDescription('Build static website')
-            ->addArgument('host', InputArgument::OPTIONAL, 'What should be used as domain name for absolute url generation?')
-            ->addArgument('destination', InputArgument::OPTIONAL, 'Full path to destination directory')
-            ->addOption('no-sitemap', null, InputOption::VALUE_NONE, 'Don\'t build the sitemap')
-            ->addOption('no-expose', null, InputOption::VALUE_NONE, 'Don\'t expose the public directory after build')
+            ->addArgument(
+                'host',
+                InputArgument::OPTIONAL,
+                'What should be used as domain name for absolute url generation?'
+            )
+            ->addArgument(
+                'destination',
+                InputArgument::OPTIONAL,
+                'Full path to destination directory'
+            )
+            ->addOption(
+                'no-sitemap',
+                null,
+                InputOption::VALUE_NONE,
+                'Don\'t build the sitemap'
+            )
+            ->addOption(
+                'no-expose',
+                null,
+                InputOption::VALUE_NONE,
+                'Don\'t expose the public directory after build'
+            )
         ;
     }
 
@@ -127,7 +145,7 @@ class BuildCommand extends Command
         }
 
         if (!in_array('GET', $route->getMethods())) {
-            throw new Exception(sprintf('Impossible to statically build a "%s" request, only "GET" is accepted.', $name), 1);
+            throw new Exception(sprintf('Only GET mehtod supported, "%s" given.', $name));
         }
 
         if ($route->hasContent()) {
@@ -158,7 +176,11 @@ class BuildCommand extends Command
         $contents    = $this->app['content_repository']->listContents($contentType);
         $paginator   = new Paginator($contents, $route->getPerPage());
 
-        $this->logger->log(sprintf('Building route <comment>%s</comment> for <info>%s</info> pages', $name, $paginator->count()));
+        $this->logger->log(sprintf(
+            'Building route <comment>%s</comment> for <info>%s</info> pages',
+            $name,
+            $paginator->count()
+        ));
         $this->logger->getProgress($paginator->count());
         $this->logger->start();
 
@@ -181,7 +203,12 @@ class BuildCommand extends Command
         $contentType = $route->getContent();
         $contents    = $this->app['content_repository']->listContents($contentType);
 
-        $this->logger->log(sprintf('Building route <comment>%s</comment> with <info>%s</info> <comment>%s(s)</comment>', $name, count($contents), $contentType));
+        $this->logger->log(sprintf(
+            'Building route <comment>%s</comment> with <info>%s</info> <comment>%s(s)</comment>',
+            $name,
+            count($contents),
+            $contentType
+        ));
         $this->builder->build($route, $name);
     }
 
@@ -196,7 +223,12 @@ class BuildCommand extends Command
         $contentType = $route->getContent();
         $contents    = $this->app['content_repository']->listContents($contentType);
 
-        $this->logger->log(sprintf('Building route <comment>%s</comment> for <info>%s</info> <comment>%s(s)</comment>', $name, count($contents), $route->getContent()));
+        $this->logger->log(sprintf(
+            'Building route <comment>%s</comment> for <info>%s</info> <comment>%s(s)</comment>',
+            $name,
+            count($contents),
+            $route->getContent()
+        ));
         $this->logger->getProgress(count($contents));
         $this->logger->start();
 

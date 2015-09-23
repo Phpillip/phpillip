@@ -16,7 +16,7 @@ class ContentControllerServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
-        $app['content.controller'] = $app->share(function() {
+        $app['content.controller'] = $app->share(function () {
             return new ContentController();
         });
     }

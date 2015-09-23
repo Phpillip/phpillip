@@ -133,7 +133,12 @@ class ContentRepository
         $finder = $this->listFiles($type)->name($name . '.*');
 
         if (!$finder->count()) {
-            throw new Exception(sprintf('No content directory find for type "%s" and name "%s" (in "%s").', $type, $name, $this->directory), 1);
+            throw new Exception(sprintf(
+                'No content directory find for type "%s" and name "%s" (in "%s").',
+                $type,
+                $name,
+                $this->directory
+            ));
         }
 
         foreach ($finder as $file) {
@@ -208,7 +213,11 @@ class ContentRepository
             $path = sprintf('%s/%s', $this->directory, $type);
 
             if (!$this->files->exists($path)) {
-                throw new Exception(sprintf('No content directory found for type "%s" (in "%s").', $type, $this->directory), 1);
+                throw new Exception(sprintf(
+                    'No content directory found for type "%s" (in "%s").',
+                    $type,
+                    $this->directory
+                ));
             }
 
             $finder = new Finder();
@@ -261,7 +270,8 @@ class ContentRepository
             if (is_array($data)) {
                 foreach ($this->handlers as $property => $handler) {
                     if ($handler->isSupported($data)) {
-                        $data[$property] = $handler->handle(isset($data[$property]) ? $data[$property] : null, $context);
+                        $value = isset($data[$property]) ? $data[$property] : null;
+                        $data[$property] = $handler->handle($value, $context);
                     }
                 }
             }

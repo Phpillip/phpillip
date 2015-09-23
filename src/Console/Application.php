@@ -30,7 +30,12 @@ class Application extends BaseApplication
 
         parent::__construct('Phpillip', $kernel::VERSION);
 
-        $this->getDefinition()->addOption(new InputOption('--no-debug', null, InputOption::VALUE_NONE, 'Switches off debug mode.'));
+        $this->getDefinition()->addOption(new InputOption(
+            '--no-debug',
+            null,
+            InputOption::VALUE_NONE,
+            'Switches off debug mode.'
+        ));
     }
 
     /**

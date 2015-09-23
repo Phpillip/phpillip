@@ -99,8 +99,8 @@ class TemplateListener implements EventSubscriberInterface
 
         $templates = [];
 
-        if (is_array($controller) && is_object($controller[0]) && preg_match('#Controller\\\(.+)Controller$#', get_class($controller[0]), $matches)) {
-            $template = sprintf('%s/%s.%s.twig', $matches[1], $controller[1], $format);
+        if ($controllerInfo = $this->parseController($controller)) {
+            $template = sprintf('%s/%s.%s.twig', $controllerInfo['name'], $controllerInfo['action'], $format);
 
             if ($this->templateExists($template)) {
                 return $template;
@@ -122,6 +122,26 @@ class TemplateListener implements EventSubscriberInterface
         }
 
         return array_pop($templates);
+    }
+
+    /**
+     * Parse controller to extract its name
+     *
+     * @param mixed $controller
+     *
+     * @return string
+     */
+    protected function parseController($controller)
+    {
+        if (!is_array($controller) || !is_object($controller[0]) || !isset($controller[1])) {
+            return null;
+        }
+
+        if (!preg_match('#Controller\\\(.+)Controller$#', get_class($controller[0]), $matches)) {
+            return null;
+        }
+
+        return ['name' => $matches[1], 'action' => $controller[1]];
     }
 
     /**

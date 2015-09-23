@@ -72,7 +72,12 @@ class Builder
         $url      = $this->app['url_generator']->generate($name, $parameters, UrlGeneratorInterface::ABSOLUTE_URL);
         $response = $this->getResponse($url, array_merge($parameters, ['_format' => $route->getFormat()]));
 
-        $this->write($this->getFilePath($route, $parameters), $response->getContent(), $route->getFormat(), $route->getFileName());
+        $this->write(
+            $this->getFilePath($route, $parameters),
+            $response->getContent(),
+            $route->getFormat(),
+            $route->getFileName()
+        );
     }
 
     /**

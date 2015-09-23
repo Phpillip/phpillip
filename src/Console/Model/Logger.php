@@ -78,7 +78,7 @@ class Logger
      */
     public function start()
     {
-        if ($this->progress){
+        if ($this->progress) {
             $this->progress->start();
         }
     }
@@ -88,7 +88,7 @@ class Logger
      */
     public function advance()
     {
-        if ($this->progress){
+        if ($this->progress) {
             $this->progress->advance();
         }
     }
@@ -98,7 +98,7 @@ class Logger
      */
     public function finish()
     {
-        if ($this->progress){
+        if ($this->progress) {
             $this->progress->finish();
             $this->progress = null;
             $this->flush();

@@ -44,7 +44,7 @@ class PhpillipConfiguration implements ConfigurationInterface
                     ->info('Enable/Disable the XML sitemap generation')
                 ->end()
                 ->variableNode('parameters')
-                    ->info('Your key/value parameters will be available in Application parameters ($app[\'parameters\'][\'my_key\'] and as twig global variables: {{ my_key }}.')
+                    ->info('Your key/value parameters.')
                 ->end()
             ->end()
         ;
