@@ -11,7 +11,30 @@ XML      | *.xml
 
 ## The Markdown header
 
+The markdown format is a bit special, the content of the file will be parsed and converted to HTML and stored into a `content` key.
 
+You can define key and value for content by writing a YAML header:
+
+``` markdown
+---
+title: "My first blog post"
+description: "A fine blog post, you will like it."
+---
+
+# My post title
+
+My content goes _here_!
+```
+
+This file would be decoded as the followin array:
+
+``` php
+[
+    'title'       => "My first blog post",
+    'description' => "My first blog post",
+    'content'     => '<h1>My post title</h1><p>My content goes <em>here</em>!</p>'
+]
+```
 
 ## Support your own format
 
