@@ -26,5 +26,8 @@ class ContentControllerServiceProvider implements ServiceProviderInterface
      */
     public function boot(Application $app)
     {
+        if ($app['default_controllers']) {
+            $app->mount('', new AutoControllerProvider());
+        }
     }
 }
