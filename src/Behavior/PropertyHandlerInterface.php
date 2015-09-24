@@ -17,17 +17,17 @@ interface PropertyHandlerInterface
     /**
      * Is data supported?
      *
-     * @param array $data
+     * @param array $data The content being parsed
      *
      * @return boolean
      */
     public function isSupported(array $data);
 
     /**
-     * Handler property
+     * Handle property
      *
-     * @param mixed $value
-     * @param array $context
+     * @param mixed $value The property value
+     * @param array $context The context of parsing process
      *
      * @return mixed
      */

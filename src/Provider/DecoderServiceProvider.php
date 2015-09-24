@@ -18,15 +18,15 @@ class DecoderServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
-        $decoders = [
+        $app['content_decoders'] = [
             new Encoder\XmlEncoder(),
             new Encoder\JsonEncoder(),
             new PhpillipEncoder\YamlEncoder(),
             new PhpillipEncoder\MarkdownDecoder()
         ];
 
-        $app['decoder'] = $app->share(function ($app) use ($decoders) {
-            return new Serializer([], $decoders);
+        $app['decoder'] = $app->share(function ($app) {
+            return new Serializer([], $app['content_decoders']);
         });
     }
 

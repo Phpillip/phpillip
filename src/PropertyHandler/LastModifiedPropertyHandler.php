@@ -19,11 +19,7 @@ class LastModifiedPropertyHandler implements PropertyHandlerInterface
     }
 
     /**
-     * Is data supported?
-     *
-     * @param array $data
-     *
-     * @return boolean
+     * {@inheritdoc}
      */
     public function isSupported(array $data)
     {
