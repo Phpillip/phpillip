@@ -2,11 +2,13 @@
 
 Property handlers are responsible for enriching parsed contents by providing automatic properties or casting properties as a certain type.
 
-Phpillip provides a default set of Property Handlers (see `Phpillip\PropertyHandler`) and you're able to add your own to fit your needs.
+Phpillip provides a default set of Property Handlers (see [Retrieving content](../content/retrieving-content.md)).
+
+And you're able to add your own to fit your needs!
 
 ## Create a custom property handler
 
-Implements the `Phpillip\Behavior\PropertyHandlerInterface`:
+_Create a class_ that implements the `Phpillip\Behavior\PropertyHandlerInterface`:
 
 ```
 <?php
@@ -57,10 +59,10 @@ class MyPropertyHandler implements PropertyHandlerInterface
 }
 ```
 
-## Register your property handler
+_Register your property handler_ in the Content Repository:
 
 ``` php
     $app['content_repository']->addPropertyHandler(new MyPropertyHandler());
 ```
 
-In this example, the `handle` method will be called on every `my_property` properties when the content data `isSupported`.
+In this example, the __handle__ method will be called on every _my_property_ properties when the content data _isSupported_.

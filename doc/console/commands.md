@@ -1,6 +1,6 @@
 # Phpillip's console
 
-Call the Phpillip console with `bin/console` (yes, it's a Symfony console).
+> Phpillip uses Symfony console. So, in order to get the full list of available commands, just call `bin/console`.
 
 Phpillip provides 3 commands:
 
@@ -8,46 +8,72 @@ Phpillip provides 3 commands:
 
 Build the static files to `/dist`:
 
-Usage:
+__Usage:__
 
-      phpillip:build [options] [--] [<host>] [<destination>]
+    phpillip:build [options] [--] [<host>] [<destination>]
 
-Arguments:
+__Arguments:__
 
 - `host`: What should be used as domain name for absolute url generation?
 - `destination`: Full path to destination directory
 
-Options:
+__Options:__
 
 - `--no-sitemap`: Don't build the sitemap
 - `--no-expose`: Don't expose the public directory after build
 
-# Watch
+Example:
+
+    bin/console phpillip:build my-domain.com
+
+## Watch
 
 Have Phpillip watch for any changes in `/src` and rebuild the files automatically:
 
-Usage:
+__Usage:__
 
     phpillip:watch [options]
 
-Options:
+__Options:__
 
 - `--period=PERIOD`   Set the polling period in seconds [default: 1]
 
-# Serve
+Example:
 
-You can also live-preview your website without building it by running the Phpillip local PHP server:
+    bin/console phpillip:watch
 
-Usage:
+## Serve
+
+You can also live-preview your website without building it by launching the Phpillip local PHP server:
+
+__Usage:__
 
     phpillip:serve [options] [--] [<address>]
 
-Arguments:
+__Arguments:__
 
 - `address`: address:port [default: "127.0.0.1"]
 
-Options:
+__Options:__
 
 - `-p`, `--port=PORT`: Address port number [default: "8080"]
 
+Example:
+
+    bin/console phpillip:serve
+
 Your website will be available at [http://localhost:8080](http://localhost:8080)
+
+__Note:__
+
+It's a Symfony console so you can use shortcuts ;)
+
+    # Build
+    bin/console p:b
+
+    # Watch
+    bin/console p:w
+
+    # Serve
+    bin/console p:s
+

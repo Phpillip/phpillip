@@ -142,6 +142,10 @@ You're done!
 
 ## Going further:
 
+About Phpillip's __features__:
+- [Helpers: Param Converters and other route shortcuts](doc/feature/helpers.md)
+- [Sitemap](doc/feature/sitemap.md)
+
 About __content__:
 
 - [Supported formats](doc/content/formats.md)
@@ -152,7 +156,7 @@ About __controllers__:
 
 - [Phpillip's default content controller](doc/controller/content.md)
 - [Custom controller classes](doc/controller/custom.md)
-- [Param Converters](doc/controller/param-converters.md)
+- [Specifying output format](doc/controller/format.md)
 
 About the __console__:
 
@@ -161,12 +165,13 @@ About the __console__:
 ## Directory structure
 
 ```
- Sources directory
+# Sources directory
 src/
     # Your Silex Application in which your declare routes, services, ...
     Application.php
 
     # Your controller classes (optional)
+    # This is only a recommandation, you can put controllers wherever you like
     /Controller
         MyController.php
 
@@ -198,9 +203,9 @@ src/
             base.html.twig
             blog/
                 index.html.twig
-                post.html.twig
+                show.html.twig
 
- Destination directory
+# Destination directory
 dist/
     # The static files will be dumped in here
 

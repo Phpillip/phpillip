@@ -2,7 +2,6 @@
 
 namespace Phpillip\Console\Model;
 
-use DateTime;
 use Phpillip\Routing\Route;
 use Silex\Application;
 use Symfony\Component\Filesystem\Filesystem;
@@ -70,12 +69,13 @@ class Builder
     public function build(Route $route, $name, array $parameters = [])
     {
         $url      = $this->app['url_generator']->generate($name, $parameters, UrlGeneratorInterface::ABSOLUTE_URL);
-        $response = $this->getResponse($url, array_merge($parameters, ['_format' => $route->getFormat()]));
+        $request  = Request::create($url, 'GET', array_merge(['_format' => $route->getFormat()], $parameters));
+        $response = $this->app->handle($request);$
 
         $this->write(
             $this->getFilePath($route, $parameters),
             $response->getContent(),
-            $route->getFormat(),
+            $request->getFormat($response->headers->get('Content-Type')),
             $route->getFileName()
         );
     }
@@ -98,21 +98,6 @@ class Builder
         }
 
         $this->files->dumpFile(sprintf('%s/%s', $directory, $file), $content);
-    }
-
-    /**
-     * Create a Request for the given url and return the corresponding Response
-     *
-     * @param string $url The URI
-     * @param array $parameters The query (GET) or request (POST) parameters
-     *
-     * @return Response
-     */
-    protected function getResponse($url, array $parameters = [])
-    {
-        $request = Request::create($url, 'GET', $parameters);
-
-        return $this->app->handle($request);
     }
 
     /**

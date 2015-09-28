@@ -2,32 +2,33 @@
 
 ## The content repository
 
-The content repository service is responsible for fetching you content, you'll find it in the Application under the _content_repository_ key:
+The content repository service is responsible for fetching you content, you'll find it in the Application under the *content_repository* key:
 
 ``` php
-    $app['content_repository']
+$app['content_repository'];
 ```
 
 When parsing a content, the repository returns an associative array with the following keys:
 
-Property      | Presence              | Description
-------------- | --------------------- | -----------------------------------
-slug          | Added if not provided | Slug, based on the source file name
-lastModified  | Added if not provided | Last modification of the source file
-date          | Parsed if provided    | If a `date` property exists, parse it as DateTime
-weight        | Parsed if provided    | If a `date` property exists, parse it as DateTime
-...           | Provided              | Any other key present in the source file
+Property      | Presence                 | Description
+------------- | ------------------------ | -----------------------------------
+slug          | Added if not provided    | Slug, based on the source file name
+lastModified  | Added if not provided    | Last modification of the source file
+date          | Parsed if provided       | If a `date` property exists, parse it as DateTime
+weight        | Parsed if provided       | If a `date` property exists, parse it as DateTime
+content       | Added for Markdown files | Content of the Markdown file, converted to HTML
+...           | Provided                 | Any other key present in the source file
 
-> Need more/differents properties? Check out [Property Handlers](./property-handlers)
+> Need more/differents properties? You can [add your own](../content/property-handlers)
 
 ## Fetching content
 
 ### Get a single content
 
-The `getContent` method expect a content type and a content name:
+The `getContent` method expect a content type and a content name and return a single content:
 
 ``` php
-// Get a content matching `my-content.*` contents in 'data/foo':
+// Get a content matching `my-content.*` contents in 'src/Resources/data/foo':
 $app['content_repository']->getContent('foo', 'my-content');
 
 // Result:
@@ -40,10 +41,10 @@ $app['content_repository']->getContent('foo', 'my-content');
 
 ### Get all contents
 
-The `getContents` method expect a content type:
+The `getContents` method expect a content type and return all its contents:
 
 ``` php
-// Get all contents in 'data/foo':
+// Get all contents in 'src/Resources/data/foo':
 $app['content_repository']->getContents('foo');
 
 // Result:
@@ -54,25 +55,25 @@ $app['content_repository']->getContents('foo');
 ]
 ```
 
-In a list, the contents are indexed by default by their source file name (_slug_).
+In a list, the contents are indexed by default by their source file name (a.k.a _slug_).
 
 ### Indexing and ordering contents
 
-Say you have a `post` content that contains a `date` property, you can get all the _posts_ indexded by date:
+Say you have a `post` content that contains a `date` property, you can get all the _posts_ indexed by date:
 
 ``` php
-// Get all contents in 'data/post', indexed by 'date':
+// Get all contents in 'src/Resources/data/post' indexed by 'date':
 $app['content_repository']->getContents('post', 'date');
 
 // Result:
 [
-    '2015-09-24' => ['date' => DateTime, 'slug' => 'my-first-post, ...],
-    '2015-09-25' => ['date' => DateTime, 'slug' => 'my-second-post, ...],
+    1441836000 => ['date' => DateTime, 'slug' => 'my-first-post, ...],
+    1443474500 => ['date' => DateTime, 'slug' => 'my-second-post, ...],
     // ...
 ]
 ```
 
-A third parameter is provided to sort the resuting array:
+A third parameter is provided to sort the resulting array:
 
 ``` php
 // Get older post first ('date' ascending):

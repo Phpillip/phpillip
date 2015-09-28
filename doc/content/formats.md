@@ -11,9 +11,14 @@ XML      | *.xml
 
 ## The Markdown header
 
-The markdown format is a bit special, the content of the file will be parsed and converted to HTML and stored into a `content` key.
+YAML, JSON and XML are key/values formats, so they can be easily parsed as associative array.
 
-You can define key and value for content by writing a YAML header:
+The Markdown can't. That's why Phpillip's markdown parser is a bit special.
+
+The content of the file is parsed and converted to HTML.
+The result is then stored into the `content` key of an associative array.
+
+You can define additional keys and values for content by writing a YAML header:
 
 ``` markdown
 ---
@@ -26,12 +31,12 @@ description: "A fine blog post, you will like it."
 My content goes _here_!
 ```
 
-This file would be decoded as the followin array:
+This file would be decoded as the following array:
 
 ``` php
 [
-    'title'       => "My first blog post",
-    'description' => "My first blog post",
+    'title'       => 'My first blog post',
+    'description' => 'A fine blog post, you will like it.',
     'content'     => '<h1>My post title</h1><p>My content goes <em>here</em>!</p>'
 ]
 ```
@@ -41,7 +46,7 @@ This file would be decoded as the followin array:
 In Phpillip, the `decoder` service is responsible for parsing content.
 The decoder is a Symfony _Serializer_ filled a Symfony _Decoder_ for each format.
 
-_If your curious, have a look at `Phpillip\Provider\DecoderServiceProvider`._
+> If your curious, have a look at `Phpillip\Provider\DecoderServiceProvider`.
 
 To support a new format, just create class that implement `Symfony\Component\Serializer\Encoder\DecoderInterface`:
 
@@ -81,3 +86,6 @@ And add it to Phpillip content encoders:
 $app['content_encoders'][] = new MyCustomDecoder();
 ```
 
+Files matchin your custom format will now be parsed among the others.
+
+__Note:__ To know more about how Phpillip parses contents have a look at [property handlers](../content/property-handlers.md).

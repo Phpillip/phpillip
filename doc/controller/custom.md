@@ -1,6 +1,6 @@
 # Custom Controller
 
-You can declare your own controller as classes:
+You can declare your own controllers as classes:
 
 ``` php
 <?php
