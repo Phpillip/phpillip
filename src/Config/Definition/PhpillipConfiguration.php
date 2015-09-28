@@ -20,6 +20,10 @@ class PhpillipConfiguration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('default_controllers')
+                    ->defaultTrue()
+                    ->info('Provides default controllers for contents')
+                ->end()
                 ->scalarNode('route_class')
                     ->defaultValue('Phpillip\Routing\Route')
                 ->end()
