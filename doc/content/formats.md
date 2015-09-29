@@ -9,37 +9,9 @@ YAML     | *.yml
 JSON     | *.json
 XML      | *.xml
 
-## The Markdown header
+## Markdown
 
-YAML, JSON and XML are key/values formats, so they can be easily parsed as associative array.
-
-The Markdown can't. That's why Phpillip's markdown parser is a bit special.
-
-The content of the file is parsed and converted to HTML.
-The result is then stored into the `content` key of an associative array.
-
-You can define additional keys and values for content by writing a YAML header:
-
-``` markdown
----
-title: "My first blog post"
-description: "A fine blog post, you will like it."
----
-
-# My post title
-
-My content goes _here_!
-```
-
-This file would be decoded as the following array:
-
-``` php
-[
-    'title'       => 'My first blog post',
-    'description' => 'A fine blog post, you will like it.',
-    'content'     => '<h1>My post title</h1><p>My content goes <em>here</em>!</p>'
-]
-```
+The Markdown format get a special treatment and [has its own documentation section](../content/markdown.md).
 
 ## Support your own format
 

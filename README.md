@@ -149,6 +149,7 @@ About Phpillip's __features__:
 About __content__:
 
 - [Supported formats](doc/content/formats.md)
+- [Markdown](doc/content/markdown.md)
 - [Retrieving content](doc/content/retrieving-content.md)
 - [Property handlers](doc/content/property-handlers.md)
 
