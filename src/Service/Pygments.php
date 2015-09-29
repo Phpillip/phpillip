@@ -77,4 +77,18 @@ class Pygments
 
         return $process->getOutput();
     }
+
+    /**
+     * Is pygmentize available?
+     *
+     * @return boolean
+     */
+    public static function isAvailable()
+    {
+        $process = new Process('pygmentize -V');
+
+        $process->run();
+
+        return $process->isSuccessful();
+    }
 }

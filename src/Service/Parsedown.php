@@ -22,7 +22,9 @@ class Parsedown extends BaseParsedown
      */
     public function __construct()
     {
-        $this->pygments = new Pygments();
+        if (Pygments::isAvailable()) {
+            $this->pygments = new Pygments();
+        }
     }
 
     /**
@@ -72,7 +74,7 @@ class Parsedown extends BaseParsedown
 
         $text = $Block['element']['text']['text'];
 
-        if ($language = $this->getLanguage($Block)) {
+        if ($this->pygments && $language = $this->getLanguage($Block)) {
             return $this->pygments->highlight($text, $language);
         }
 
