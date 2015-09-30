@@ -36,7 +36,7 @@ __Usage:__
 
 __Options:__
 
-- `--period=PERIOD`   Set the polling period in seconds [default: 1]
+- `--period=PERIOD`: Set the polling period in seconds (default: 1)
 
 Example:
 
@@ -52,11 +52,11 @@ __Usage:__
 
 __Arguments:__
 
-- `address`: address:port [default: "127.0.0.1"]
+- `address`: address:port (default: "127.0.0.1")
 
 __Options:__
 
-- `-p`, `--port=PORT`: Address port number [default: "8080"]
+- `-p`, `--port=PORT`: Address port number (default: "8080")
 
 Example:
 

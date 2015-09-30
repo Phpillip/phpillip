@@ -45,15 +45,14 @@ This file would be decoded as the following array:
 Thanks to Parsedown, Phpillip supports Github Flavored Markdown.
 That means you can define a language for your code blocks:
 
-```markdown
-    ```php
+    ``` php
     $this->isPhp();
     ```
 
-    ```javascript
+
+    ``` javascript
     this.isJavascript();
     ```
-```
 
 Phpillip provides syntax highlighting for code block that define a language. He entrust [Pygments](http://pygments.org/), a python command line tool, to do the job.
 
