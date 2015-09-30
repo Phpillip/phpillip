@@ -91,12 +91,7 @@ class TemplateListener implements EventSubscriberInterface
             return null;
         }
 
-        $format = $request->attributes->get('_format', 'html');
-
-        if ($format === 'rss') {
-            return '@phpillip/rss.xml.twig';
-        }
-
+        $format    = $request->attributes->get('_format', 'html');
         $templates = [];
 
         if ($controllerInfo = $this->parseController($controller)) {
