@@ -265,7 +265,7 @@ class ContentRepository
 
         if (!isset($this->cache['contents'][$path])) {
             $data    = $this->decoder->decode($file->getContents(), static::getFormat($file));
-            $context = ['file' => $file];
+            $context = ['file' => $file, 'data' => $data];
 
             if (is_array($data)) {
                 foreach ($this->handlers as $property => $handler) {
