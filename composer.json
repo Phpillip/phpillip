@@ -1,9 +1,9 @@
 {
-    "name": "tom32i/phpillip",
+    "name": "phpillip/phpillip",
     "license": "MIT",
     "type": "library",
     "description": "PHP Static Site Generator",
-    "homepage": "https://github.com/Tom32i/phpillip",
+    "homepage": "http://phpillip.github.io/",
     "authors": [
         {
             "name": "Thomas Jarrand",
@@ -30,7 +30,9 @@
         "symfony/yaml": "~2.7",
         "erusev/parsedown": "^1.5"
     },
-    "bin": ["src/Resources/bin/console"],
+    "bin": [
+        "src/Resources/bin/console"
+    ],
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
