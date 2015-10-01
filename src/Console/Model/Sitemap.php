@@ -23,7 +23,7 @@ class Sitemap implements Iterator, Countable
      *
      * @var integer
      */
-    protected $position;
+    protected $position = 0;
 
     /**
      * Add location
@@ -53,7 +53,7 @@ class Sitemap implements Iterator, Countable
             $url['frequency'] = $frequency;
         }
 
-        $this->urls[] = $url;
+        $this->urls[$location] = $url;
     }
 
     /**
@@ -69,7 +69,7 @@ class Sitemap implements Iterator, Countable
      */
     public function current()
     {
-        return $this->urls[$this->position];
+        return $this->urls[array_keys($this->urls)[$this->position]];
     }
 
     /**
@@ -77,7 +77,7 @@ class Sitemap implements Iterator, Countable
      */
     public function key()
     {
-        return $this->position;
+        return array_keys($this->urls)[$this->position];
     }
 
     /**
@@ -93,7 +93,7 @@ class Sitemap implements Iterator, Countable
      */
     public function valid()
     {
-        return isset($this->urls[$this->position]);
+        return isset(array_keys($this->urls)[$this->position]);
     }
 
     /**
