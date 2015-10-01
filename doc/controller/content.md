@@ -11,7 +11,9 @@ Phpillip provides a default `ContentController` that support 3 actions:
 To register a controller that display a single _achievement_:
 
 ``` php
-$this->get('/achievements/{achievement}', 'content.controller:show')->content('achievement');
+$this
+    ->get('/achievements/{achievement}', 'content.controller:show')
+    ->content('achievement');
 ```
 
 The expected template `achievement/show.html.twig` would receives the variable `achievement`.
@@ -21,7 +23,9 @@ The expected template `achievement/show.html.twig` would receives the variable `
 To register a controller that display all _achievements_:
 
 ``` php
-    $this->get('/achievements', 'content.controller:list')->contents('achievement');
+    $this
+        ->get('/achievements', 'content.controller:list')
+        ->contents('achievement');
 ```
 
 The expected template `achievement/list.html.twig` would receives the variable `achievements`.
@@ -31,7 +35,9 @@ The expected template `achievement/list.html.twig` would receives the variable `
 To register a controller that paginate _achievements_:
 
 ``` php
-    $this->get('/achievements', 'content.controller:page')->paginate('achievement');
+    $this
+        ->get('/achievements', 'content.controller:page')
+        ->paginate('achievement');
 ```
 
 The expected template `achievement/page.html.twig` would receives the following variables:

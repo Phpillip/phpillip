@@ -48,11 +48,19 @@ class Pygments
     {
         $path = tempnam($this->tmp, 'pyg');
 
+        if ($language === 'php' && substr($value, 0, 5) !== '<?php') {
+            $value = '<?php ' . PHP_EOL . $value;
+        }
+
         $this->files->dumpFile($path, $value);
 
         $value = $this->pygmentize($path, $language);
 
         unlink($path);
+
+        if (preg_match('#^<div class="highlight"><pre>((.|[\r\n])+)</pre></div>$#', $value, $matches)) {
+            return $matches[1];
+        }
 
         return $value;
     }

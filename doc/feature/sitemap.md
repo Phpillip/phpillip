@@ -24,7 +24,7 @@ $app->get('blog/feed.rss')->hideFromSitemap();
 
 To disable the _sitemap_ feature completely, set it to `false` in the configuration:
 
-``` yml
+``` yaml
 # src/Resources/config/config.yml
 sitemap: false
 ```

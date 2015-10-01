@@ -21,6 +21,6 @@ class TwigServiceProvider extends BaseTwigServiceProvider
         $app['twig.path'] = $app['root'] . $app['twig_path'];
         $app['twig.loader.filesystem']->addPath(__DIR__ . '/../Resources/views', 'phpillip');
         $app['twig']->addGlobal('parameters', $app['parameters']);
-        $app['twig']->addExtension(new MarkdownExtension());
+        $app['twig']->addExtension(new MarkdownExtension($app['parsedown']));
     }
 }

@@ -19,12 +19,12 @@ class Parsedown extends BaseParsedown
 
     /**
      * Constructor
+     *
+     * @param Pygments|null $pygments
      */
-    public function __construct()
+    public function __construct(Pygments $pygments = null)
     {
-        if (Pygments::isAvailable()) {
-            $this->pygments = new Pygments();
-        }
+        $this->pygments = $pygments;
     }
 
     /**
@@ -54,7 +54,9 @@ class Parsedown extends BaseParsedown
     {
         $data = parent::inlineLink($Excerpt);
 
-        $data['element']['attributes']['target'] = '_blank';
+        if (preg_match('#(https?:)?//#i', $data['element']['attributes']['href'])) {
+            $data['element']['attributes']['target'] = '_blank';
+        }
 
         return $data;
     }

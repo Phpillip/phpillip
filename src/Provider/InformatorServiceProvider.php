@@ -17,7 +17,7 @@ class InformatorServiceProvider implements ServiceProviderInterface
     public function register(Application $app)
     {
         $app['informator'] = $app->share(function ($app) {
-            return new Informator($app['url_generator']);
+            return new $app['informator_class']($app['url_generator']);
         });
 
         $app->before([$app['informator'], 'beforeRequest']);

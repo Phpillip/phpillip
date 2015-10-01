@@ -12,6 +12,23 @@ use Twig_SimpleFilter as SimpleFilter;
 class MarkdownExtension extends Extension
 {
     /**
+     * Markdown parser
+     *
+     * @var Parsdown
+     */
+    protected $parser;
+
+    /**
+     * Constructor
+     *
+     * @param Parsedown $parser
+     */
+    public function __construct(Parsedown $parser)
+    {
+        $this->parser = $parser;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getFilters()
@@ -30,9 +47,7 @@ class MarkdownExtension extends Extension
      */
     public function markdownify($data)
     {
-        $parser = new Parsedown();
-
-        return $parser->parse($data);
+        return $this->parser->parse($data);
     }
 
     /**

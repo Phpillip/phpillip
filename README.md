@@ -40,7 +40,7 @@ Get your static website:
 
 1. Bootstrap a Phpillip project
 2. Write your content
-3. Declare your routes and controllers  _(optional)_
+3. Declare your routes and controllers
 4. Provide templates
 5. Build the static website
 
@@ -48,8 +48,10 @@ Get your static website:
 
 To bootstrap a new [Phpillip](https://github.com/Tom32i/phpillip) project:
 
-    composer create-project tom32i/phpillip-standard my_app
-    cd my_app
+``` bash
+composer create-project tom32i/phpillip-standard my_app
+cd my_app
+```
 
 ### 2. Write content
 
@@ -67,36 +69,29 @@ title: Why use Phpillip?
 Why not!
 ```
 
-### 3. Declare routes and controllers _(optional)_
-
-By default, Phpillip declare 2 routes and the associated controller for each content type:
-
-- A paginated list
-- A single content view
-
-You can remove this default behavior to provide you own:
+### 3. Declare routes and controllers
 
 Phpillip is a Silex application, so you can declare a route and its controller [the same way you would in Silex](http://silex.sensiolabs.org/doc/usage.html#routing):
 
 A closure:
 
-```php
+``` php
 $this->get('/', function () { return []; })->template('index.html.twig');
 ```
 
 Your own controller class in 'src/Controller':
 
-```php
+``` php
 $this->get('/blog', 'Controller\\BlogController::index');
 ```
 
 A controller service (here the Phpillip content controller service):
 
-```php
+``` php
 $this->get('/blog/{post}', 'content.controller:show')->content('post');
 ```
 
-Phpillip gives you [many helpers](doc/controller/helpers.md) to automate content loading for your routes.
+Phpillip gives you [many helpers](doc/feature/helpers.md) to automate content loading for your routes.
 
 ### 4. Provide templates
 
@@ -112,12 +107,12 @@ _Variables:_ An array of contents, named `[content-type]s`.
 ``` twig
 {% extends 'base.html.twig' %}
 {% block content %}
-    {% foreach article in articles %}
+    {% for article in articles %}
         <a href="{{ path('article', {article: article.slug}) }}">
             {{ article.title }}
         </a>
     {% endfor %}
-(% endblock %)
+{% endblock %}
 ```
 
 The single content page template:
@@ -129,7 +124,7 @@ _Variables:_ The content as an associative array, named `[content-type]`.
 {% extends 'base.html.twig' %}
 {% block content %}
     {{ article.content }}
-(% endblock %)
+{% endblock %}
 ```
 
 ### 5. Build

@@ -19,7 +19,7 @@ The result is then stored into the `content` key of an associative array.
 
 You can define additional keys and values for content by writing a YAML header:
 
-``` markdown
+```
 ---
 title: "My first blog post"
 description: "A fine blog post, you will like it."

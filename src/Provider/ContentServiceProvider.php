@@ -18,7 +18,7 @@ class ContentServiceProvider implements ServiceProviderInterface
     public function register(Application $app)
     {
         $app['content_repository'] = $app->share(function ($app) {
-            return new ContentRepository($app['decoder'], $app['root'] . $app['src_path']);
+            return new $app['content_repository_class']($app['decoder'], $app['root'] . $app['src_path']);
         });
 
         $app['content_repository']

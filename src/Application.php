@@ -2,6 +2,7 @@
 
 namespace Phpillip;
 
+use Phpillip\Config\Configurator;
 use Phpillip\Provider as PhpillipProvider;
 use Silex\Application as BaseApplication;
 use Silex\Provider as SilexProvider;
@@ -16,12 +17,25 @@ class Application extends BaseApplication
      */
     public function __construct(array $values = array())
     {
-        parent::__construct(array_merge($values, ['root' => $this->getRoot()]));
+        parent::__construct(array_merge_recursive(
+            ['root' => $this->getRoot()],
+            $this->getConfiguration(),
+            $values
+        ));
 
+        $this->registerServiceProviders();
+    }
+
+    /**
+     * Register service providers
+     */
+    public function registerServiceProviders()
+    {
         $this->register(new SilexProvider\HttpFragmentServiceProvider());
         $this->register(new SilexProvider\UrlGeneratorServiceProvider());
         $this->register(new SilexProvider\ServiceControllerServiceProvider());
-        $this->register(new PhpillipProvider\ConfigurationServiceProvider());
+        $this->register(new PhpillipProvider\PygmentsServiceProvider());
+        $this->register(new PhpillipProvider\ParsedownServiceProvider());
         $this->register(new PhpillipProvider\DecoderServiceProvider());
         $this->register(new PhpillipProvider\ContentServiceProvider());
         $this->register(new PhpillipProvider\TwigServiceProvider());
@@ -31,11 +45,23 @@ class Application extends BaseApplication
     }
 
     /**
+     * Load and return configuration
+     *
+     * @return array
+     */
+    protected function getConfiguration()
+    {
+        $configurator = new Configurator($this, [$this->getRoot() . '/Resources/config']);
+
+        return $configurator->getConfiguration();
+    }
+
+    /**
      * Get root directory (the by Symfony Kernel's way)
      *
      * @return string
      */
-    private function getRoot()
+    protected function getRoot()
     {
         $reflection = new \ReflectionObject($this);
 
