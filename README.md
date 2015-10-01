@@ -46,10 +46,10 @@ Get your static website:
 
 ### 1. Bootstrap
 
-To bootstrap a new [Phpillip](https://github.com/Tom32i/phpillip) project:
+To bootstrap a new [Phpillip](https://github.com/Phpillip/phpillip) project:
 
 ``` bash
-composer create-project tom32i/phpillip-standard my_app
+composer create-project phpillip/phpillip-standard my_app
 cd my_app
 ```
 
