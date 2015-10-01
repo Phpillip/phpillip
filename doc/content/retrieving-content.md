@@ -67,8 +67,8 @@ $app['content_repository']->getContents('post', 'date');
 
 // Result:
 [
-    1441836000 => ['date' => DateTime, 'slug' => 'my-first-post, ...],
-    1443474500 => ['date' => DateTime, 'slug' => 'my-second-post, ...],
+    1441836000 => ['date' => DateTime, 'slug' => 'my-first-post', ...],
+    1443474500 => ['date' => DateTime, 'slug' => 'my-second-post', ...],
     // ...
 ]
 ```

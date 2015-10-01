@@ -71,7 +71,10 @@ class Application extends BaseApplication
                 new Command\ExposeCommand(),
                 new Command\ServeCommand(),
                 new Command\WatchCommand(),
-            ]
+            ],
+            array_map(function ($className) {
+                return new $className;
+            }, $this->getKernel()['commands'])
         );
     }
 }

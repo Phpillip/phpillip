@@ -19,7 +19,7 @@ The result is then stored into the `content` key of an associative array.
 
 You can define additional keys and values for content by writing a YAML header:
 
-``` markdown
+```
 ---
 title: "My first blog post"
 description: "A fine blog post, you will like it."
@@ -45,15 +45,14 @@ This file would be decoded as the following array:
 Thanks to Parsedown, Phpillip supports Github Flavored Markdown.
 That means you can define a language for your code blocks:
 
-```markdown
-    ```php
+    ``` php
     $this->isPhp();
     ```
 
-    ```javascript
+
+    ``` javascript
     this.isJavascript();
     ```
-```
 
 Phpillip provides syntax highlighting for code block that define a language. He entrust [Pygments](http://pygments.org/), a python command line tool, to do the job.
 

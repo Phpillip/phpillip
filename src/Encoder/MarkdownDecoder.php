@@ -22,6 +22,23 @@ class MarkdownDecoder implements DecoderInterface
     const HEAD_SEPARATOR = '---';
 
     /**
+     * Markdown parser
+     *
+     * @var Parsdown
+     */
+    protected $parser;
+
+    /**
+     * Constructor
+     *
+     * @param Parsedown $parser
+     */
+    public function __construct(Parsedown $parser)
+    {
+        $this->parser = $parser;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function decode($data, $format, array $context = array())
@@ -70,8 +87,6 @@ class MarkdownDecoder implements DecoderInterface
      */
     protected function markdownify($data)
     {
-        $parser = new Parsedown();
-
-        return $parser->parse($data);
+        return $this->parser->parse($data);
     }
 }

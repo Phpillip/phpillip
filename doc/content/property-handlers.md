@@ -10,7 +10,7 @@ And you're able to add your own to fit your needs!
 
 _Create a class_ that implements the `Phpillip\Behavior\PropertyHandlerInterface`:
 
-```
+``` php
 <?php
 
 namespace PropertyHandler;
@@ -62,7 +62,7 @@ class MyPropertyHandler implements PropertyHandlerInterface
 _Register your property handler_ in the Content Repository:
 
 ``` php
-    $app['content_repository']->addPropertyHandler(new MyPropertyHandler());
+$app['content_repository']->addPropertyHandler(new MyPropertyHandler());
 ```
 
 In this example, the __handle__ method will be called on every _my_property_ properties when the content data _isSupported_.
