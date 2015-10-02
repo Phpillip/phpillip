@@ -1,4 +1,4 @@
-# Phpillip
+# ![](http://phpillip.github.io/phpillip.svg)
 
 > Phillip is [Hugo](https://gohugo.io/)'s cousin.
 
