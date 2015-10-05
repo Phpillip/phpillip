@@ -1,6 +1,6 @@
 # ![](http://phpillip.github.io/phpillip.svg)
 
-> Phillip is [Hugo](https://gohugo.io/)'s cousin.
+> Phpillip is [Hugo](https://gohugo.io/)'s cousin.
 
 ## What
 

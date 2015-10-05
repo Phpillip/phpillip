@@ -4,7 +4,7 @@ Specifiyng the format of a route will determine the extention of the output file
 
 By default, all routes are treated as _HTML_ and therefor dumped as `.html` files.
 
-Phillip rely on the _Response_ `Content-Type` header to determine the format of a route.
+Phpillip rely on the _Response_ `Content-Type` header to determine the format of a route.
 
 To control the output format of a route, you just need to configure the _Response_ with the desired content type.
 

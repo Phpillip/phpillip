@@ -6,7 +6,7 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * Phillip configuration reference
+ * Phpillip configuration reference
  */
 class PhpillipConfiguration implements ConfigurationInterface
 {
