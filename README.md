@@ -158,6 +158,10 @@ About the __console__:
 
 - [Phpillip's Console](doc/console/commands.md)
 
+## Contribution
+
+Any kind of [contribution](doc/more/contribution.md) is very welcome!
+
 ## Directory structure
 
 ```
