@@ -133,6 +133,8 @@ Build the static files to `/dist` with the Phpillip build command:
 
     bin/console phpillip:build
 
+![](http://phpillip.github.io/build.gif)
+
 You're done!
 
 ## Going further:
