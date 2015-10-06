@@ -101,8 +101,8 @@ If you use the default Phpillip routes and controller, you'll need to provide:
 
 The list template:
 
-_File:_ `[my-content-type]/index.html.twig`
-_Variables:_ An array of contents, named `[content-type]s`.
+* _File:_ `[my-content-type]/index.html.twig`.
+* _Variables:_ An array of contents, named `[content-type]s`.
 
 ``` twig
 {% extends 'base.html.twig' %}
@@ -117,8 +117,8 @@ _Variables:_ An array of contents, named `[content-type]s`.
 
 The single content page template:
 
-_File:_ `[my-content-type]/show.html.twig`
-_Variables:_ The content as an associative array, named `[content-type]`.
+* _File:_ `[my-content-type]/show.html.twig`.
+* _Variables:_ The content as an associative array, named `[content-type]`.
 
 ``` twig
 {% extends 'base.html.twig' %}
@@ -153,6 +153,7 @@ About __controllers__:
 - [Phpillip's default content controller](doc/controller/content.md)
 - [Custom controller classes](doc/controller/custom.md)
 - [Specifying output format](doc/controller/format.md)
+- [Template Resolution](doc/controller/template.md)
 
 About the __console__:
 
