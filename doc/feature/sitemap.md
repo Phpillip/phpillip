@@ -1,11 +1,11 @@
 # Sitemap
 
-Phpillip automatically generate an XML sitemap of your website.
+Phpillip automatically generates an XML sitemap of your website.
 The sitemap contains every URL called by the _build_ command.
 
 ## Set last modified
 
-When registering an url in the sitemap, the build command look for a _Last-Modified_ header in the _Response_, if it exists it will be used as `<lastmod>` tag for this entry in the sitemap.
+When registering a url in the sitemap, the build command looks for a _Last-Modified_ header in the _Response_, if it exists it will be used as `<lastmod>` tag for this entry in the sitemap.
 
 So if you want to set a last modified tag for a custom controller, just set the _Last-Modified_ header in your response.
 

@@ -28,7 +28,7 @@ Example:
 
 ## Watch
 
-Have Phpillip watch for any changes in `/src` and rebuild the files automatically:
+Have Phpillip watch for any change in `/src` and rebuild the files automatically:
 
 __Usage:__
 
