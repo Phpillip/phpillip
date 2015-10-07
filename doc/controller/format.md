@@ -2,7 +2,7 @@
 
 Specifiyng the format of a route will determine the extention of the output file during the build.
 
-By default, all routes are treated as _HTML_ and therefor dumped as `.html` files.
+By default, all routes are treated as _HTML_ and therefore dumped as `.html` files.
 
 Phpillip rely on the _Response_ `Content-Type` header to determine the format of a route.
 
@@ -10,12 +10,12 @@ To control the output format of a route, you just need to configure the _Respons
 
 There are 3 ways to do it:
 
-## Do it, litteraly:
+## Do it, literally:
 
 ```php
 function () {
     // Will output a '.txt' file
-    return new Response('Hello', 200, ['Content-Type' => 'text/plain'])
+    return new Response('Hello', 200, ['Content-Type' => 'text/plain']);
 }
 
 function () {
@@ -24,11 +24,11 @@ function () {
 }
 ```
 
-## Set the *_format* Request attribute
+## Set the *_format* attribute of the _Request_
 
-In Symfony, Response content type is by default determined by the format of the Request.
+In Symfony, _Response_ content type is by default determined by the format of the _Request_.
 
-So you can define the output format of a route by setting the _Request_ attribute `_format`. And Phpillip provides you with a `format` method on the route to do just that:
+So you can define the output format of a route by setting the _Request_ attribute `_format`. Phpillip will provide you with a `format` method on the route to do just that:
 
 ```php
 // Will output a '.txt' file
@@ -37,7 +37,7 @@ $app->get('/hello')->format('txt');
 
 __Note__: Remember that the _Response_ expects a Mime-Type (e.g _text/html_) but the _Request_ expects a format (e.g. _html_).
 
-Finally you can set the format of the route by explicitely naming the file in the url pattern:
+Finally you can set the format of the route by explicitly naming the file in the url pattern:
 
 ```php
 // Will output a '.json' file

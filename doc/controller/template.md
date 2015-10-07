@@ -1,7 +1,7 @@
 # Template resolution
 
-Phpillip provide the same type of template resolution that you get in Symfony.
-When a Controller don't return a _Response_, Phpillip will try to create one by finding and rendering a matching template.
+Phpillip provides the same type of template resolution that you get in Symfony.
+When a Controller doesn't return a _Response_, Phpillip will try to create one by finding and rendering a matching template.
 
 ## For content routes
 
@@ -36,5 +36,5 @@ Phpillip will look for the template `[ControllerName]/[actionName].[format].twig
 
 In our example: `src/Resources/views/Blog/index.html.twig`
 
-__Note:__ Phpillip look for a twig template matching the format of your route.
+__Note:__ Phpillip looks for a twig template matching the format of your route.
 

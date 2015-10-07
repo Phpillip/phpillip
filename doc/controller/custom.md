@@ -56,4 +56,4 @@ Register your controller in the app:
     $this->get('/product/{reference}', 'Controller\\ProductController:show');
 ```
 
-The expected template `achievement/list.html.twig` would receives the variable `achievements`.
+The expected template `achievement/list.html.twig` would receive the variable `achievements`.
