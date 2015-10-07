@@ -2,7 +2,7 @@
 
 ## The content repository
 
-The content repository service is responsible for fetching you content, you'll find it in the Application under the *content_repository* key:
+The content repository service is responsible for fetching your content. You'll find it in the Application under the *content_repository* key:
 
 ``` php
 $app['content_repository'];
@@ -25,7 +25,7 @@ content       | Added for Markdown files | Content of the Markdown file, convert
 
 ### Get a single content
 
-The `getContent` method expect a content type and a content name and return a single content:
+The `getContent` method expects a content type and a content name. It returns a single content:
 
 ``` php
 // Get a content matching `my-content.*` contents in 'src/Resources/data/foo':
@@ -51,7 +51,7 @@ $app['content_repository']->getContents('foo');
 [
     'my-content'       => ['slug' => 'my-content', 'lastModified' => DateTime, ...],
     'my-other-content' => ['slug' => 'my-other-content', 'lastModified' => DateTime, ...],
-    // ...
+    // …
 ]
 ```
 

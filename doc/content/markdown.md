@@ -4,7 +4,7 @@ Phpillip is designed to parse Markdown as a first-choice content format.
 
 Markdown provides a cleanway of writing structured text and is easily converted to HTML.
 
-Phpillip rely on [Parsedown](http://parsedown.org/) for parsing Markdown, in the Markdown decoder.
+Phpillip relies on [Parsedown](http://parsedown.org/) for parsing Markdown, in the Markdown decoder.
 
 __Note:__ if you're not happy with it, you can always [setup you own encoder](../content/formats.md).
 
