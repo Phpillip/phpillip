@@ -2,11 +2,11 @@
 
 Phpillip's Route extends Silex's Route and provide an extra set of helpers.
 
-These helpers are designed to save you time by addressing common controller needs automatically: parameters to content conversion, pagination, template resolution…
+These helpers are designed to save you time by addressing common controller needs automatically: parameters to content conversion, pagination, template resolution...
 
 ## Content issues
 
-When building a route that depends on the content (e.g. `/blog/{article}`), Phpillip will need to call the route for each article content you have: _blog/my-first-post_, _blog/my-second-post_…
+When building a route that depends on the content (e.g. `/blog/{article}`), Phpillip will need to call the route for each article content you have: _blog/my-first-post_, _blog/my-second-post_...
 
 That's why Phpillip provides helpers to _link_ your routes to your contents.
 
@@ -95,7 +95,7 @@ $app->get('/blog')->paginate('article');
 
 The paginate helper adds a `page` optional parameter to the route so that it can handle the following urls: `/blog` and `/blog/{page}`.
 
-When building a route that paginates content, Phpillip will need to call the route for each page, depending on how much content you have: _blog_, _blog/2_, _blog/3_…
+When building a route that paginates content, Phpillip will need to call the route for each page, depending on how much content you have: _blog_, _blog/2_, _blog/3_...
 
 __Note:__ the page parameters is ommitted on the first page.
 

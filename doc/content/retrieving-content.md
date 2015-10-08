@@ -51,7 +51,7 @@ $app['content_repository']->getContents('foo');
 [
     'my-content'       => ['slug' => 'my-content', 'lastModified' => DateTime, ...],
     'my-other-content' => ['slug' => 'my-other-content', 'lastModified' => DateTime, ...],
-    // …
+    // ...
 ]
 ```
 

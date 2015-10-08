@@ -12,6 +12,6 @@ __Whether you're a developer or not, any contribution is welcome:__
 - Idea / suggestion
 - Sharing / Blog post
 
-If you want to contribute to the source code, please fill free to submit a pull request in Github.
+If you want to contribute to the source code, please feel free to submit a pull request in Github.
 
 Thank you guys!
