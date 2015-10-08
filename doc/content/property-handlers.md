@@ -65,4 +65,4 @@ _Register your property handler_ in the Content Repository:
 $app['content_repository']->addPropertyHandler(new MyPropertyHandler());
 ```
 
-In this example, the __handle__ method will be called on every _my_property_ properties when the content data _isSupported_.
+In this example, the __handle__ method will be called on every _my_property_ property when the content data _isSupported_.

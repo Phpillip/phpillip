@@ -1,6 +1,6 @@
 # Content Controller
 
-Phpillip provides a default `ContentController` that support 3 actions:
+Phpillip provides a default `ContentController` that supports 3 actions:
 
 - __show:__ Display a single content (suited for [single content](single-content))
 - __list:__ Display a full list of content (suited for [content list](../content/helpers.md#content-list))
@@ -8,7 +8,7 @@ Phpillip provides a default `ContentController` that support 3 actions:
 
 ## Show
 
-To register a controller that display a single _achievement_:
+To register a controller that displays a single _achievement_:
 
 ``` php
 $this
@@ -16,11 +16,11 @@ $this
     ->content('achievement');
 ```
 
-The expected template `achievement/show.html.twig` would receives the variable `achievement`.
+The expected template `achievement/show.html.twig` would receive the variable `achievement`.
 
 ## List
 
-To register a controller that display all _achievements_:
+To register a controller that displays all _achievements_:
 
 ``` php
     $this
@@ -28,11 +28,11 @@ To register a controller that display all _achievements_:
         ->contents('achievement');
 ```
 
-The expected template `achievement/list.html.twig` would receives the variable `achievements`.
+The expected template `achievement/list.html.twig` would receive the variable `achievements`.
 
 ## Paginate
 
-To register a controller that paginate _achievements_:
+To register a controller that paginates _achievements_:
 
 ``` php
     $this
@@ -40,7 +40,7 @@ To register a controller that paginate _achievements_:
         ->paginate('achievement');
 ```
 
-The expected template `achievement/page.html.twig` would receives the following variables:
+The expected template `achievement/page.html.twig` would receive the following variables:
 - `achievements`: Achievements for the current page
 - `page`: Index of the current page
 - `pages`: Total number of pages

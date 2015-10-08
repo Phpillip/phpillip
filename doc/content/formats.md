@@ -1,6 +1,6 @@
 # Supported formats
 
-Phpillip already support the following content formats:
+Phpillip already supports the following content formats:
 
 Format   | Extension
 -------- | ---------
@@ -11,14 +11,14 @@ XML      | *.xml
 
 ## Markdown
 
-The Markdown format get a special treatment and [has its own documentation section](../content/markdown.md).
+The Markdown format gets a special treatment and [has its own documentation section](../content/markdown.md).
 
 ## Support your own format
 
 In Phpillip, the `decoder` service is responsible for parsing content.
-The decoder is a Symfony _Serializer_ filled a Symfony _Decoder_ for each format.
+The decoder is a Symfony _Serializer_ filled with a Symfony _Decoder_ for each format.
 
-> If your curious, have a look at `Phpillip\Provider\DecoderServiceProvider`.
+> If you're curious, have a look at `Phpillip\Provider\DecoderServiceProvider`.
 
 To support a new format, just create class that implement `Symfony\Component\Serializer\Encoder\DecoderInterface`:
 
@@ -58,6 +58,6 @@ And add it to Phpillip content encoders:
 $app['content_encoders'][] = new MyCustomDecoder();
 ```
 
-Files matchin your custom format will now be parsed among the others.
+Files matching your custom format will now be parsed among the others.
 
 __Note:__ To know more about how Phpillip parses contents have a look at [property handlers](../content/property-handlers.md).
