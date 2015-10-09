@@ -64,7 +64,6 @@ class SitemapListener implements EventSubscriberInterface
         if ($route && $route->isMapped()) {
             $url          = $request->attributes->get('_canonical');
             $lastModified = new DateTime($response->headers->get('Last-Modified'));
-
             $this->sitemap->add($url, $lastModified);
         }
     }

@@ -231,7 +231,7 @@ class Route extends BaseRoute
      */
     public function isMapped()
     {
-        return !$this->getOption('hide-from-sitemap');
+        return $this->isVisible() && !$this->getOption('hide-from-sitemap');
     }
 
     /**
