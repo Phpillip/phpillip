@@ -58,8 +58,8 @@ class Pygments
 
         unlink($path);
 
-        if (preg_match('#^<div class="highlight"><pre>((.|[\r\n])+)</pre></div>$#', $value, $matches)) {
-            return $matches[1];
+        if (preg_match('#^<div class="highlight"><pre>#', $value) && preg_match('#</pre></div>$#', $value)) {
+            return substr($value, 28, strlen($value) - 40);
         }
 
         return $value;
@@ -83,7 +83,7 @@ class Pygments
             throw new RuntimeException($process->getErrorOutput());
         }
 
-        return $process->getOutput();
+        return trim($process->getOutput());
     }
 
     /**
