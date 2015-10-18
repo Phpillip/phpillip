@@ -1,16 +1,17 @@
 <?xml version="1.0"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>{{ title }}</title>
         <description>{{ description }}</description>
         <language>{{ language|default('en') }}</language>
         <link>{{ link|default(canonical) }}</link>
-        {% if webmaster|default(null) %}
-            <webMaster>{{ webmaster }}</webMaster>
+        <atom:link href="{{ link|default(canonical) }}" rel="self" type="application/rss+xml" />
+        {% if webmaster.email|default(null) and webmaster.name|default(null) %}
+            <webMaster>{{ webmaster.email }} ({{ webmaster.name }})</webMaster>
         {% endif %}
         {% set pubDate = pubDate|default((items|first).pubDate) %}
         {% if pubDate %}
-            <pubDate>{{ pubDate|date('c') }}</pubDate>
+            <pubDate>{{ pubDate|date(constant('DateTime::RFC2822')) }}</pubDate>
         {% endif %}
         {% for item in items %}
         <item>
@@ -21,7 +22,7 @@
                 <guid>{{ item.guid }}</guid>
             {% endif %}
             {% if item.pubDate|default(null) %}
-                <pubDate>{{ item.pubDate|date('c') }}</pubDate>
+                <pubDate>{{ item.pubDate|date(constant('DateTime::RFC2822')) }}</pubDate>
             {% endif %}
         </item>
         {% endfor %}
