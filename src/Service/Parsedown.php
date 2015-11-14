@@ -62,6 +62,18 @@ class Parsedown extends BaseParsedown
     }
 
     /**
+     * {@inheritdoc}
+     */
+    protected function blockHeader($Line)
+    {
+        $Block = parent::blockHeader($Line);
+
+        $Block['element']['attributes']['id'] = $this->getId($Block);
+
+        return $Block;
+    }
+
+    /**
      * Process code content
      *
      * @param string $text
@@ -97,5 +109,17 @@ class Parsedown extends BaseParsedown
         }
 
         return substr($Block['element']['text']['attributes']['class'], strlen('language-'));
+    }
+
+    /**
+     * Get ID for the given block
+     *
+     * @param array $Block
+     *
+     * @return string
+     */
+    protected function getId($Block)
+    {
+        return preg_replace('#[^a-z]+#i', '-', strtolower($Block['element']['text']));
     }
 }
