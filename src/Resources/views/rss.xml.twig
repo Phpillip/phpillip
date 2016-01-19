@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>{{ title }}</title>
@@ -12,6 +12,16 @@
         {% set pubDate = pubDate|default((items|first).pubDate) %}
         {% if pubDate %}
             <pubDate>{{ pubDate|date(constant('DateTime::RFC2822')) }}</pubDate>
+        {% endif %}
+        {% if image|default(null) %}
+        <image>
+            <url>{{ image.url }}</url>
+            <title>{{ title|default(title) }}</title>
+            <link>{{ link|default(canonical) }}</link>
+            <description>{{ description }}</description>
+            <width>{{ image.width }}</width>
+            <height>{{ image.height }}</height>
+        </image>
         {% endif %}
         {% for item in items %}
         <item>

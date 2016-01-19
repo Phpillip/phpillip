@@ -36,14 +36,43 @@ class Informator
      */
     public function beforeRequest(Request $request, Application $app)
     {
-        $url = $this->urlGenerator->generate(
+        if ($canonical = $this->getCanonicalUrl($request)) {
+            $request->attributes->set('_canonical', $canonical);
+            $app['twig']->addGlobal('canonical', $canonical);
+        }
+
+
+        if ($root = $this->getRootUrl($request)) {
+            $request->attributes->set('_root', $root);
+            $app['twig']->addGlobal('root', $root);
+        }
+    }
+
+    /**
+     * Get canonical URL
+     *
+     * @param Request $request
+     *
+     * @return string
+     */
+    protected function getCanonicalUrl(Request $request)
+    {
+        return $this->urlGenerator->generate(
             $request->attributes->get('_route'),
             $request->attributes->get('_route_params'),
             UrlGeneratorInterface::ABSOLUTE_URL
         );
+    }
 
-        $request->attributes->set('_canonical', $url);
-
-        $app['twig']->addGlobal('canonical', $url);
+    /**
+     * Get root URL
+     *
+     * @param Request $request
+     *
+     * @return string
+     */
+    protected function getRootUrl(Request $request)
+    {
+        return sprintf('%s://%s', $request->getScheme(), $request->getHost());
     }
 }
