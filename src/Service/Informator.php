@@ -41,7 +41,6 @@ class Informator
             $app['twig']->addGlobal('canonical', $canonical);
         }
 
-
         if ($root = $this->getRootUrl($request)) {
             $request->attributes->set('_root', $root);
             $app['twig']->addGlobal('root', $root);
