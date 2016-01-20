@@ -34,12 +34,12 @@ class Application extends BaseApplication
         $this->register(new SilexProvider\HttpFragmentServiceProvider());
         $this->register(new SilexProvider\UrlGeneratorServiceProvider());
         $this->register(new SilexProvider\ServiceControllerServiceProvider());
+        $this->register(new PhpillipProvider\InformatorServiceProvider());
         $this->register(new PhpillipProvider\PygmentsServiceProvider());
         $this->register(new PhpillipProvider\ParsedownServiceProvider());
         $this->register(new PhpillipProvider\DecoderServiceProvider());
         $this->register(new PhpillipProvider\ContentServiceProvider());
         $this->register(new PhpillipProvider\TwigServiceProvider());
-        $this->register(new PhpillipProvider\InformatorServiceProvider());
         $this->register(new PhpillipProvider\SubscriberServiceProvider());
         $this->register(new PhpillipProvider\ContentControllerServiceProvider());
     }
