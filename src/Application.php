@@ -2,69 +2,59 @@
 
 namespace Phpillip;
 
-use Phpillip\Config\Configurator;
-use Phpillip\Provider as PhpillipProvider;
-use Silex\Application as BaseApplication;
-use Silex\Provider as SilexProvider;
+use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\Routing\RouteCollectionBuilder;
 
 /**
- * Phpillip Application
+ * Phpillip Kernel
  */
-class Application extends BaseApplication
+abstract class PhpillipKernel extends Kernel
 {
+    use MicroKernelTrait;
+
     /**
      * {@inheritdoc}
      */
-    public function __construct(array $values = array())
+    public function registerBundles()
     {
-        parent::__construct(array_merge_recursive(
-            ['root' => $this->getRoot()],
-            $this->getConfiguration(),
-            $values
-        ));
-
-        $this->registerServiceProviders();
+        return [
+            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+            //new SilexProvider\HttpFragmentServiceProvider(),
+            //new SilexProvider\UrlGeneratorServiceProvider(),
+            //new SilexProvider\ServiceControllerServiceProvider(),
+            //new PhpillipProvider\InformatorServiceProvider(),
+            //new PhpillipProvider\PygmentsServiceProvider(),
+            //new PhpillipProvider\ParsedownServiceProvider(),
+            //new PhpillipProvider\DecoderServiceProvider(),
+            //new PhpillipProvider\ContentServiceProvider(),
+            //new PhpillipProvider\TwigServiceProvider(),
+            //new PhpillipProvider\SubscriberServiceProvider(),
+            //new PhpillipProvider\ContentControllerServiceProvider(),
+        ];
     }
 
     /**
-     * Register service providers
+     * {@inheritdoc}
      */
-    public function registerServiceProviders()
+    protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader)
     {
-        $this->register(new SilexProvider\HttpFragmentServiceProvider());
-        $this->register(new SilexProvider\UrlGeneratorServiceProvider());
-        $this->register(new SilexProvider\ServiceControllerServiceProvider());
-        $this->register(new PhpillipProvider\InformatorServiceProvider());
-        $this->register(new PhpillipProvider\PygmentsServiceProvider());
-        $this->register(new PhpillipProvider\ParsedownServiceProvider());
-        $this->register(new PhpillipProvider\DecoderServiceProvider());
-        $this->register(new PhpillipProvider\ContentServiceProvider());
-        $this->register(new PhpillipProvider\TwigServiceProvider());
-        $this->register(new PhpillipProvider\SubscriberServiceProvider());
-        $this->register(new PhpillipProvider\ContentControllerServiceProvider());
-    }
+        // load bundles' configuration
+        $container->loadFromExtension('framework', [
+            'secret'     => '12345',
+            'profiler'   => null,
+            'templating' => ['engines' => ['twig']],
+        ]);
 
-    /**
-     * Load and return configuration
-     *
-     * @return array
-     */
-    protected function getConfiguration()
-    {
-        $configurator = new Configurator($this, [$this->getRoot() . '/Resources/config']);
+        $container->loadFromExtension('web_profiler', ['toolbar' => true]);
 
-        return $configurator->getConfiguration();
-    }
+        // add configuration parameters
+        $container->setParameter('mail_sender', 'user@example.com');
 
-    /**
-     * Get root directory (the by Symfony Kernel's way)
-     *
-     * @return string
-     */
-    protected function getRoot()
-    {
-        $reflection = new \ReflectionObject($this);
-
-        return str_replace('\\', '/', dirname($reflection->getFileName()));
+        // register services
+        $container->register('app.markdown', 'AppBundle\\Service\\Parser\\Markdown');
     }
 }
