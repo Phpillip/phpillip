@@ -20,14 +20,13 @@ class PublicExtension extends Extension
     protected $root;
 
     /**
-     * Before request
+     * Set root directory
      *
-     * @param Request $request
-     * @param Application $app
+     * @param $root
      */
-    public function beforeRequest(Request $request, Application $app)
+    public function setRoot($root)
     {
-        $this->root = $request->attributes->get('_root');
+        $this->root = $root;
     }
 
     /**

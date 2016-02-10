@@ -9,8 +9,8 @@ use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\RouteCollection;
-use Twig_Environment;
-use Twig_Error_Loader;
+use Symfony\Component\Routing\Router;
+use Symfony\Component\Templating\EngineInterface;
 
 /**
  * Find and render the proper template for unfinished controller response
@@ -20,19 +20,26 @@ class TemplateListener implements EventSubscriberInterface
     /**
      * Twig rendering engine
      *
-     * @var Twig_Environment
+     * @var EngineInterface
      */
     protected $templating;
 
     /**
+     * Routes
+     *
+     * @var RouteCollection
+     */
+    protected $routes;
+
+    /**
      * Constructor
      *
-     * @param RouteCollection $routes
-     * @param Twig_Environment $templating
+     * @param Router $router
+     * @param EngineInterface $templating
      */
-    public function __construct(RouteCollection $routes, Twig_Environment $templating)
+    public function __construct(Router $router, EngineInterface $templating)
     {
-        $this->routes     = $routes;
+        $this->routes     = $router->getRouteCollection();
         $this->templating = $templating;
     }
 
@@ -73,7 +80,7 @@ class TemplateListener implements EventSubscriberInterface
         $parameters = $event->getControllerResult();
 
         if (!$response instanceof Response && $template = $request->attributes->get('_template')) {
-            return $event->setControllerResult($this->templating->render($template, $parameters));
+            $event->setResponse($this->templating->renderResponse($template, $parameters));
         }
     }
 
@@ -97,7 +104,7 @@ class TemplateListener implements EventSubscriberInterface
         if ($controllerInfo = $this->parseController($controller)) {
             $template = sprintf('%s/%s.%s.twig', $controllerInfo['name'], $controllerInfo['action'], $format);
 
-            if ($this->templateExists($template)) {
+            if ($this->templating->exists($template)) {
                 return $template;
             } else {
                 $templates[] = $template;
@@ -109,7 +116,7 @@ class TemplateListener implements EventSubscriberInterface
         if ($route && $route->hasContent()) {
             $template = sprintf('%s/%s.%s.twig', $route->getContent(), $route->isList() ? 'list' : 'show', $format);
 
-            if ($this->templateExists($template)) {
+            if ($this->templating->exists($template)) {
                 return $template;
             } else {
                 $templates[] = $template;
@@ -137,23 +144,5 @@ class TemplateListener implements EventSubscriberInterface
         }
 
         return ['name' => $matches[1], 'action' => $controller[1]];
-    }
-
-    /**
-     * Does the given template exists?
-     *
-     * @param string $template
-     *
-     * @return boolean
-     */
-    protected function templateExists($template)
-    {
-        try {
-            $class = $this->templating->getTemplateClass($template);
-        } catch (Twig_Error_Loader $e) {
-            return false;
-        }
-
-        return $template;
     }
 }

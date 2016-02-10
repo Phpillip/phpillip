@@ -1,19 +1,25 @@
 <?php
 
-$root = $_SERVER['DOCUMENT_ROOT'].'/../../..';
+/*
+ * See Symfony Console router:
+ * https://github.com/symfony/framework-bundle/blob/master/Resources/config/router_prod.php
+ */
 
-require_once $root . '/vendor/autoload.php';
-require_once $root . '/src/Application.php';
+// Workaround https://bugs.php.net/64566
+if (ini_get('auto_prepend_file') && !in_array(realpath(ini_get('auto_prepend_file')), get_included_files(), true)) {
+    require ini_get('auto_prepend_file');
+}
 
-use Symfony\Component\Debug\Debug;
-
-Debug::enable();
-
-$filename = $_SERVER['DOCUMENT_ROOT'] . preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
-
-if (is_file($filename)) {
+if (is_file($_SERVER['DOCUMENT_ROOT'].preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']))) {
     return false;
 }
 
-$application = new Application(['debug' => true]);
-$application->run();
+$root   = $_SERVER['DOCUMENT_ROOT'].'/..';
+$loader = require $root.'/vendor/autoload.php';
+require_once $root.'/src/Kernel.php';
+
+$kernel = new Kernel('dev', true);
+$request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
+$response = $kernel->handle($request);
+$response->send();
+$kernel->terminate($request, $response);

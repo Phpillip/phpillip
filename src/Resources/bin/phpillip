@@ -15,18 +15,19 @@ function tryRequireOnce($file)
 }
 
 tryRequireOnce('vendor/autoload.php');
-tryRequireOnce('src/Application.php');
+tryRequireOnce('src/Kernel.php');
 
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Debug\Debug;
-use Phpillip\Console\Application as Console;
+use Phpillip\Console\Application;
 
 $input = new ArgvInput();
-$debug = getenv('APP_DEBUG') !== '0' && !$input->hasParameterOption(array('--no-debug', ''));
+$env   = $input->getParameterOption(['--env', '-e'], getenv('APP_ENV') ?: 'dev');
 
-if ($debug) {
+if ($debug = getenv('APP_DEBUG') !== '0' && !$input->hasParameterOption(['--no-debug', '']) && $env !== 'prod') {
     Debug::enable();
 }
 
-$application = new Console(new Application(['debug' => $debug]));
+$kernel = new Kernel($env, $debug);
+$application = new Application($kernel);
 $application->run($input);

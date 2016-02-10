@@ -2,7 +2,7 @@
 
 namespace Phpillip\Routing;
 
-use Silex\Route as BaseRoute;
+use Symfony\Component\Routing\Route as BaseRoute;
 
 /**
  * Route
@@ -123,8 +123,8 @@ class Route extends BaseRoute
                 ->contents($content, $index, $order)
                 ->setPerPage($perPage)
                 ->setPath($this->getPath() . '/{page}')
-                ->value('page', 1)
-                ->assert('page', '\d+');
+                ->setDefault('page', 1)
+                ->setRequirement('page', '\d+');
         }
 
         return $this;
@@ -244,8 +244,8 @@ class Route extends BaseRoute
     public function format($format)
     {
         $this
-            ->value('_format', $format)
-            ->assert('_format', $format);
+            ->setDefault('_format', $format)
+            ->setRequirement('_format', $format);
 
         return $this;
     }
@@ -259,7 +259,7 @@ class Route extends BaseRoute
      */
     public function template($template)
     {
-        $this->value('_template', $template);
+        $this->setDefault('_template', $template);
 
         return $this;
     }

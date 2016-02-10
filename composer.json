@@ -23,7 +23,7 @@
         "erusev/parsedown": "^1.5"
     },
     "bin": [
-        "src/Resources/bin/console"
+        "src/Resources/bin/phpillip"
     ],
     "extra": {
         "branch-alias": {
