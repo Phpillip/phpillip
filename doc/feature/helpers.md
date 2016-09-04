@@ -149,4 +149,4 @@ Route format is treated in its [dedicated documentation](../controller/format.md
 
 ## Template
 
-Tempalte resolution is treated in its [dedicated documentation](../controller/templates.md).
+Tempalte resolution is treated in its [dedicated documentation](../controller/template.md).
