@@ -2,9 +2,9 @@
 
 Phpillip provides a default `ContentController` that supports 3 actions:
 
-- __show:__ Display a single content (suited for [single content](single-content))
-- __list:__ Display a full list of content (suited for [content list](../content/helpers.md#content-list))
-- __page:__ Display one page of a paginated content list (suited for [pagination](../content/helpers.md#pagination))
+- __show:__ Display a single content (suited for [single content](../feature/helpers.md#single-content))
+- __list:__ Display a full list of content (suited for [content list](../feature/helpers.md#content-list))
+- __page:__ Display one page of a paginated content list (suited for [pagination](../feature/helpers.md#pagination))
 
 ## Show
 

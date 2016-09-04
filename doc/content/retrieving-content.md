@@ -19,7 +19,7 @@ weight        | Parsed if provided       | If a `date` property exists, parse it
 content       | Added for Markdown files | Content of the Markdown file, converted to HTML
 ...           | Provided                 | Any other key present in the source file
 
-> Need more/differents properties? You can [add your own](../content/property-handlers)
+> Need more/differents properties? You can [add your own](../content/property-handlers.md)
 
 ## Fetching content
 
